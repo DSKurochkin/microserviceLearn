@@ -1,5 +1,6 @@
 package com.dm.study.fraud;
 
+import com.dm.study.appsclients.fraud.FraudCheckResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
