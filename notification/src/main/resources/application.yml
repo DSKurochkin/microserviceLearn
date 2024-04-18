@@ -23,6 +23,9 @@ spring:
           lob:
             non_contextual_creation: true
 
+  rabbitmq:
+    addresses: localhost:5672
+
 eureka:
   client:
     serviceUrl:
@@ -31,7 +34,16 @@ eureka:
     register-with-eureka: true
     enabled: true
 
+
 management:
   tracing:
     sampling:
       probability: 1.0
+
+rabbitmq:
+  exchanges:
+    internal: internal.exchange
+  queues:
+    notification: my_notification.queue
+  routing-keys:
+    internal-notification: internal.notification.routing-key

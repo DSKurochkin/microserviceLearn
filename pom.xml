@@ -16,6 +16,7 @@
         <module>appsclients</module>
         <module>notification</module>
         <module>gw-api</module>
+        <module>amqp</module>
     </modules>
 
     <properties>

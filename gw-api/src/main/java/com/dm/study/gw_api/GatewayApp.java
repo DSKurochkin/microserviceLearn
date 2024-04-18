@@ -1,11 +1,9 @@
-package com.dm.study.notification.gw_api;
+package com.dm.study.gw_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * Hello world!
- */
+
 @SpringBootApplication
 public class GatewayApp {
     public static void main(String[] args) {
