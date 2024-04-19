@@ -2,6 +2,7 @@ package com.dm.study.amqp;
 
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Primary;
 
 @Configuration
 @AllArgsConstructor
+@EnableRabbit
 public class RabbitMQConfig {
     private final ConnectionFactory connectionFactory = new CachingConnectionFactory("localhost"); // ?? SimpleRoutingConnectionFactory
 
@@ -27,7 +29,7 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public SimpleRabbitListenerContainerFactory factory() {
+    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(jacksonConverter());
@@ -38,7 +40,6 @@ public class RabbitMQConfig {
     @Bean
     public MessageConverter jacksonConverter() {
         return new Jackson2JsonMessageConverter();
-
     }
 
 }
