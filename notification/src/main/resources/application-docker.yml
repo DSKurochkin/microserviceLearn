@@ -1,0 +1,48 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: notification
+
+  datasource:
+    username: 'amigoscode'
+    password: 'password'
+    url: jdbc:postgresql://postgres:5432/notification
+
+  jpa:
+    hibernate.ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  rabbitmq:
+    addresses: rabbitmq:5672
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: true
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+rabbitmq:
+  exchanges:
+    internal: internal.exchange
+  queues:
+    notification: my_notification.queue
+  routing-keys:
+    internal-notification: internal.notification.routing-key

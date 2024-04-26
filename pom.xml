@@ -26,6 +26,7 @@
         <spring.boot.maven.plugin.version>3.2.4</spring.boot.maven.plugin.version>
         <spring.boot.version>3.2.4</spring.boot.version>
         <spring-cloud.version>2023.0.1</spring-cloud.version>
+        <image>kurochkindm/${project.artifactId}:${project.version}</image>
     </properties>
 
     <dependencyManagement>
@@ -65,12 +66,42 @@
         </dependency>
     </dependencies>
     <build>
-        <pluginManagement>
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.maven.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>3.3.1</version>
+                    <configuration>
+                        <from>
+                            <image>eclipse-temurin:17-jdk@sha256:930303097744dec5f45d4ba4e3084dbec826f01a44ebb4303971afb112397a3e</image>
+                        </from>
+                        <to>
+                            <tags>
+                                <tag>latest</tag>
+                            </tags>
+                        </to>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

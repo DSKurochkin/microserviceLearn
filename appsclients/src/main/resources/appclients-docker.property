@@ -1,0 +1,3 @@
+appclients.customer.url=http://customer:8080
+appclients.fraud.url=http://fraud:8081
+appclients.notification.url=http://notification:8082
