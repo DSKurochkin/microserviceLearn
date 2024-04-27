@@ -15,10 +15,10 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-#  zipkin:
-#    base-url: http://zipkin:9411
+
   rabbitmq:
     addresses: rabbitmq:5672
+#    addresses: localhost:5672
 eureka:
   client:
     service-url:
@@ -26,7 +26,11 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     enabled: false
+
 management:
   tracing:
     sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411
