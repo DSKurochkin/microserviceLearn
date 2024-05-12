@@ -1,14 +1,14 @@
 server:
-  port: 8080
+  port: 8082
+
 spring:
   application:
-    name: customer
-  rabbitmq:
-    addresses: localhost:5672
+    name: notification
+
   datasource:
     username: 'amigoscode'
     password: 'password'
-    url: jdbc:postgresql://localhost:5432/customer
+    url: jdbc:postgresql://postgres:5432/notification
 
   jpa:
     hibernate.ddl-auto: create-drop
@@ -21,15 +21,22 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-      enabled: false
+
+  rabbitmq:
+    addresses: this_rabbitmq:5672
+
 management:
   tracing:
     sampling:
       probability: 1.0
   zipkin:
     tracing:
-      endpoint: http://localhost:9411
+      endpoint: http://zipkin:9411
+
+rabbitmq:
+  exchanges:
+    internal: internal.exchange
+  queues:
+    notification: my_notification.queue
+  routing-keys:
+    internal-notification: internal.notification.routing-key

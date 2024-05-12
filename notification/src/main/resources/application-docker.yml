@@ -23,8 +23,8 @@ spring:
             non_contextual_creation: true
 
   rabbitmq:
-    addresses: rabbitmq:5672
-#    addresses: localhost:5672
+    addresses: this_rabbitmq:5672
+#    addresses: rabbitmq:15672
 
 eureka:
   client:
@@ -33,7 +33,6 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     enabled: true
-
 
 management:
   tracing:

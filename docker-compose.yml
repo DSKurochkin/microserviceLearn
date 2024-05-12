@@ -36,78 +36,84 @@ services:
     networks:
       - spring
 
-  rabbitmq:
-    image: rabbitmq:3.13-management
-    container_name: rabbitmq
+  this_rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: this_rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - spring
 
-  eureka-server:
-    image: kurochkindm/eureka-server:latest
-    container_name: eureka-server
-    ports:
-      - "8761:8761"
-    environment:
-        - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-    depends_on:
-      - zipkin
-  gw-api:
-    image: kurochkindm/gw-api:latest
-    container_name: gw-api
-    ports:
-      - "8083:8083"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-    depends_on:
-      - zipkin
-      - eureka-server
-  customer:
-    image: kurochkindm/customer:latest
-    container_name: customer
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-      - postgres
-    depends_on:
-      - zipkin
-      - postgres
-      - rabbitmq
-  fraud:
-    image: kurochkindm/fraud:latest
-    container_name: fraud
-    ports:
-      - "8081:8081"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-      - postgres
-    depends_on:
-      - zipkin
-      - postgres
-      - rabbitmq
-  notification:
-    image: kurochkindm/notification:latest
-    container_name: notification
-    ports:
-      - "8082:8082"
-    environment:
-       - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - spring
-      - postgres
-    depends_on:
-      - zipkin
-      - postgres
-      - rabbitmq
+
+#  eureka-server:
+#    image: kurochkindm/eureka-server:latest
+#    container_name: eureka-server
+#    ports:
+#      - "8761:8761"
+#    environment:
+#        - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#  gw-api:
+#    image: kurochkindm/gw-api:latest
+#    container_name: gw-api
+#    ports:
+#      - "8083:8083"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#    depends_on:
+#      - zipkin
+#      - eureka-server
+#  customer:
+#    image: kurochkindm/customer:latest
+#    container_name: customer
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#      - postgres
+#    depends_on:
+#      - this_rabbitmq
+#      - zipkin
+#      - postgres
+#      - eureka-server
+#  fraud:
+#    image: kurochkindm/fraud:latest
+#    container_name: fraud
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#      - postgres
+#    depends_on:
+#      - zipkin
+#      - postgres
+#      - this_rabbitmq
+#      - eureka-server
+#  notification:
+#    image: kurochkindm/notification:latest
+#    container_name: notification
+#    ports:
+#      - "8082:8082"
+#    environment:
+#       - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring
+#      - postgres
+#    depends_on:
+#      - zipkin
+#      - postgres
+#      - this_rabbitmq
+#      - eureka-server
 
 networks:
   postgres:
